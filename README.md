@@ -33,6 +33,40 @@ NeuralStock/
 │── README.md              # 📃 프로젝트 설명 문서
 ```
 
+## 🚀 Git 브랜치 전략
+
+NeuralStock 프로젝트는 **GitHub Flow**와 **Git Flow**를 조합한 전략을 사용합니다.  
+각 브랜치의 역할은 다음과 같습니다:
+
+- `main` → **배포용 브랜치** (Stable)  
+  - 안정적인 버전만 포함되며, 직접 커밋하지 않음.  
+  - `develop` 브랜치에서 충분히 테스트된 후 병합됨.  
+
+- `develop` → **최신 개발 브랜치**  
+  - 새로운 기능이 추가될 때 기본적으로 이 브랜치에서 작업함.  
+  - 모든 `feature/xxx` 브랜치는 `develop`에서 분기되고, 완료되면 `develop`으로 병합됨.  
+
+- `feature/xxx` → **새로운 기능 개발 브랜치**  
+  - 특정 기능을 개발할 때 `develop`에서 분기하여 작업.  
+  - 완료되면 `develop`으로 병합 후 삭제.  
+  - 브랜치 이름 예시: `feature/data-fetching`, `feature/ai-model`  
+
+- `hotfix/xxx` → **긴급 버그 수정 브랜치**  
+  - `main`에서 직접 분기하여 긴급한 버그 수정 진행.  
+  - 수정 완료 후 `main`과 `develop`에 병합.  
+  - 브랜치 이름 예시: `hotfix/api-fix`, `hotfix/data-bug`  
+
+📌 **브랜치 생성 & 병합 예시**
+```sh
+# 새로운 기능 개발
+git checkout develop
+git checkout -b feature/data-fetching
+# 작업 후
+git commit -m "✨ 주식 데이터 수집 기능 추가"
+git push origin feature/data-fetching
+# PR 생성 후 develop에 병합
+```
+
 ## 💡 사용 기술
 - 언어: Python
 - 라이브러리: pandas, numpy, matplotlib, seaborn
