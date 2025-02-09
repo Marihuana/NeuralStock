@@ -1,0 +1,14 @@
+# 가상 환경 제외
+venv/
+__pycache__/
+*.pyc
+
+# Jupyter Notebook 실행 파일
+.ipynb_checkpoints/
+
+# 데이터 파일 제외 (필요시 추가)
+data/
+logs/
+
+# 모델 파일 제외 (필요시 추가)
+models/
