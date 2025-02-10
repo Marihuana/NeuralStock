@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
+from src.models.xgboost_model import train_xgboost_model
+from src.utils.enums import ModelType
 
 def fetch_stock_data(ticker: str, period: str = "6mo"):
     """
@@ -26,6 +28,20 @@ def fetch_stock_data(ticker: str, period: str = "6mo"):
     df = df.dropna()
 
     return df
+
+def train_model(ticker: str, model_type: ModelType):
+    """
+    선택한 모델을 실행하여 주가 예측 수행.
+    :param ticker: 주식 심볼
+    :param model_type: 사용할 모델 타입 (ModelType.XGBOOST, ModelType.LSTM)
+    """
+    if model_type == ModelType.XGBOOST:
+        return train_xgboost_model(ticker)
+    elif model_type == ModelType.LSTM:
+        from src.models.lstm_model import train_lstm_model  # (추후 추가)
+        return train_lstm_model(ticker)
+    else:
+        raise ValueError(f"지원되지 않는 모델 타입입니다: {model_type}")
 
 def train_predict_stock_model(ticker: str):
     """

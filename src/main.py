@@ -1,6 +1,7 @@
 from src.data_fetcher import fetch_stock_data
 from src.data_analyzer import plot_stock_chart, plot_stock_chart_with_bollinger, plot_rsi_chart
-from src.strategy import train_predict_stock_model, plot_predicted_vs_actual
+from src.strategy import train_model, plot_predicted_vs_actual
+from src.utils.enums import ModelType
 
 
 if __name__ == "__main__":
@@ -17,6 +18,8 @@ if __name__ == "__main__":
     # plot_rsi_chart(ticker, "3mo")  # RSI 차트
     # print("📈 RSI 차트 출력 완료!")
 
-    df_test = train_predict_stock_model(ticker)
-    plot_predicted_vs_actual(df_test, ticker)
+    model_type = ModelType.XGBOOST  # 사용할 모델 선택 (ModelType.XGBOOST, ModelType.LSTM)
+    
+    df_test, mae, last_pred = train_model(ticker, model_type)  # ✅ df_test 포함
+    plot_predicted_vs_actual(df_test, ticker)  # ✅ 이제 `df_test`에 예측값이 포함됨!
 
